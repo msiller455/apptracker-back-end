@@ -6,7 +6,7 @@ var logger = require('morgan');
 const session = require('express-session')
 const bodyParser = require('body-parser')
 
-var indexRouter = require('./routes/index');
+var jobappsRouter = require('./routes/jobapps');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth')
 
@@ -34,7 +34,7 @@ app.use(session({
 }))
 
 // Routes
-app.use('/', indexRouter);
+app.use('/jobapps', jobappsRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 
