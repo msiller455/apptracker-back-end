@@ -38,6 +38,7 @@ router.post('/', async(req, res) => {
   }
 })
 
+// GET USER
 router.get('/:id', async(req, res) => {
   try {
     const foundUser = await User.findById(req.params.id)
@@ -48,6 +49,7 @@ router.get('/:id', async(req, res) => {
   }
 })
 
+// EDIT USER
 router.put('/:id', async(req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -55,6 +57,17 @@ router.put('/:id', async(req, res) => {
       status: 200,
       data: updatedUser
     })
+  } catch(err) {
+    console.log(err)
+    res.send(err)
+  }
+})
+
+// DELETE USER
+router.delete('/:id', async(req, res) => {
+  try{
+    const deletedUser = await User.findOneAndRemove(req.params.id)
+    console.log(deletedUser, " has been deleted!")
   } catch(err) {
     console.log(err)
     res.send(err)
