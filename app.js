@@ -10,6 +10,10 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+require('dotenv').config()
+//Database Set up
+require('./db/db')
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -20,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

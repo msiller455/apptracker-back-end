@@ -22,8 +22,7 @@ router.get('/', async(req, res) => {
 
 // CREATE NEW USER
 router.post('/', async(req, res) => {
-  let hashedPassword = await bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
-  req.body.password = hashedPassword
+  req.body.password = await bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
 
   console.log(req.body, "hitting user")
   try {
@@ -33,6 +32,16 @@ router.post('/', async(req, res) => {
       message: "Registration Successful",
       data: createdUser
     })
+  } catch(err) {
+    console.log(err)
+    res.send(err)
+  }
+})
+
+router.get('/:id', async(req, res) => {
+  try {
+    const foundUser = await User.findById(req.params.id)
+    res.json({user: foundUser})
   } catch(err) {
     console.log(err)
     res.send(err)
