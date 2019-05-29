@@ -32,4 +32,40 @@ router.post('/', async(req, res) => {
   }
 })
 
+// GET JOB APP
+router.get('/:id', async(req, res) => {
+  try{
+    const foundApp = await JobApp.findById(req.params.id)
+    res.json({jobApp: foundApp})
+  } catch(err) {
+    console.log(err)
+    res.send(err)
+  }
+})
+
+// EDIT JOB APP
+router.put('/:id', async(req, res) => {
+  try {
+    const updatedJobApp = await JobApp.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.json({
+      status: 200,
+      data: updatedJobApp
+    })
+  } catch(err) {
+    console.log(err)
+    res.send(err)
+  }
+})
+
+// DELETE JOB APP
+router.delete('/:id', async(req, res) => {
+  try {
+    const deletedJobApp = await JobApp.findOneAndRemove(req.params.id)
+    console.log(deletedJobApp, " has been deleted!")
+  } catch(err) {
+    console.log(err)
+    res.send(err)
+  }
+})
+
 module.exports = router;
